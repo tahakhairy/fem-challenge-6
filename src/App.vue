@@ -24,9 +24,7 @@
         </div>
       </div>
 
-      <div class="card-form">
-        <card-form></card-form>
-      </div>
+      <card-form></card-form>
     </div>
   </div>
 </template>
@@ -45,8 +43,9 @@ import CardForm from "@/components/CardForm.vue";
 .container .card-bg {
   position: absolute;
   width: 30%;
-  background: url(./assets/images/bg-main-desktop.png) no-repeat;
-  height: 100%;
+  background: url(./assets/images/bg-main-desktop.png) no-repeat center
+    center/cover;
+  height: 100vh;
   z-index: -1;
 }
 
@@ -118,10 +117,5 @@ import CardForm from "@/components/CardForm.vue";
   margin: 6rem 2rem 6rem 6rem;
   padding-bottom: 0.2rem;
   color: #dedddf;
-}
-
-.card-form {
-  /* width: 60%; */
-  padding: 8rem;
 }
 </style>

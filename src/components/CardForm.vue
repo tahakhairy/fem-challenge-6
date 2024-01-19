@@ -1,78 +1,65 @@
 <template>
   <form action="">
-    <div class="input">
-      <label for="cardholder-name">CARDHOLDER NAME</label>
-      <input
-        type="text"
-        id="cardholder-name"
-        placeholder="e.g. Jane Appleseed"
-      />
+    <div class="input-field">
+      <label for="name">Cardholder Name</label>
+      <input type="text" />
     </div>
-    <div class="input">
-      <label for="card-number">CARD NUMBER</label>
-      <input
-        type="text"
-        id="card-number"
-        placeholder="e.g. 1234 5678 9123 0000"
-      />
+    <div class="input-field">
+      <label for="name">Card Number</label>
+      <input type="text" />
     </div>
 
-    <div class="card-date-cvc">
-      <div>
-        <label for="card-date">EXP. DATE (MM/YY)</label>
-        <div style="display: inline-flex">
-          <input type="text" placeholder="MM" />
-          <input type="text" placeholder="YY" />
-        </div>
+    <div class="date-cvv">
+      <div class="input-field">
+        <label for="">Exp. Date (MM/YY)</label>
+        <input type="text" />
+        <input type="text" />
       </div>
-      <div>
-        <label for="card-cvc">CVC</label>
-        <div>
-          <input type="text" placeholder="CVC" />
-        </div>
+      <div class="input-field">
+        <label for="">CVV</label>
+        <input type="text" name="" id="" />
       </div>
     </div>
+
+    <!-- <button type="submit">Confirm</button> -->
   </form>
 </template>
 
-<script setup></script>
-
 <style scoped>
 form {
-  /* padding: 8rem; */
-  flex: 29%;
+  display: grid;
+  grid-template-rows: repeat(4, 1fr);
+  gap: 1rem;
+  padding: 0 10rem;
+}
+.input-field {
   display: flex;
   flex-direction: column;
-}
-
-form label {
-  color: hsl(278, 68%, 11%);
-  font-size: 14px;
-  margin-bottom: 0.5rem;
-}
-
-form input {
-  border: none;
-  border-radius: 6px;
-  font-size: 1rem;
-  padding: 0.7rem 1rem;
-}
-
-form div.input {
-  display: flex;
-  flex-direction: column;
-  margin-top: 1.5rem;
-}
-
-form .card-date-cvc {
-  /* width: 100%; */
-  display: flex;
-  flex-direction: row;
-  margin-top: 1.5rem;
   justify-content: center;
 }
 
-::placeholder {
-  color: hsl(279, 6%, 55%);
+.date-cvv {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.date-cvv .input-field:first-child {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.date-cvv .input-field label {
+  grid-column: 1 / span 2;
+}
+
+input {
+  border: 1px solid black;
+  border-radius: 8px;
+  padding: 1rem 1.5rem;
+}
+
+label {
+  margin-bottom: 0.5rem;
 }
 </style>
