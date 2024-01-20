@@ -1,68 +1,67 @@
 <template>
-  <div class="container">
-    <div class="card-bg"></div>
-
-    <div class="content">
-      <div class="cards-container">
-        <div class="card-front">
-          <img src="./assets/images/card-logo.svg" alt="card-logo" />
-          <div class="card-info">
-            <div class="card-number">
-              <span>0000</span>
-              <span>0000</span>
-              <span>0000</span>
-              <span>0000</span>
-            </div>
-            <div class="card-name-date">
-              <p>TAHA KHAIRY</p>
-              <p>01/25</p>
-            </div>
+  <div class="app-bg"></div>
+  <div class="content">
+    <div class="cards-container">
+      <div class="card-front">
+        <img src="./assets/images/card-logo.svg" alt="card-logo" />
+        <div class="card-info">
+          <div class="card-number">
+            <span v-if="cardStore.cardData.cardNumber === ''"
+              >0000 0000 0000 0000</span
+            >
+            <span
+              v-else
+              v-for="compination in cardStore.cardNumberCompination"
+              :key="compination"
+              >{{ compination }}</span
+            >
           </div>
-        </div>
-        <div class="card-back">
-          <span class="card-cvv">000</span>
+          <div class="card-name-date">
+            <p>{{ holderName }}</p>
+            <p>01/25</p>
+          </div>
         </div>
       </div>
 
-      <card-form></card-form>
+      <div class="card-back">
+        <span class="card-cvv">000</span>
+      </div>
     </div>
+    <card-form></card-form>
   </div>
 </template>
 <script setup>
+import { computed } from "vue";
+import { useCardStore } from "./store/card";
 import CardForm from "@/components/CardForm.vue";
+
+const cardStore = useCardStore();
+
+const holderName = computed(() => {
+  return cardStore.cardData.holderName;
+});
 </script>
 <style scoped>
-.container {
-  height: 100vh;
-  overflow: hidden;
-  max-width: 1900px;
-  display: flex;
-  z-index: 1;
-}
-
-.container .card-bg {
+.app-bg {
   position: absolute;
   width: 30%;
-  background: url(./assets/images/bg-main-desktop.png) no-repeat center
+  background: url(./assets/images/bg-main-desktop.png) repeat center
     center/cover;
-  height: 100vh;
+  height: 100%;
   z-index: -1;
 }
 
-.container .content {
+.content {
   display: flex;
-  justify-content: space-around;
+  justify-content: center;
   align-items: center;
+  flex-direction: row;
   width: 100%;
+  /* transform: scale(0.85); */
 }
 
-.container .content .cards-container {
-  margin: 8rem 2rem;
-  width: 447px;
-  height: 245px;
-  display: flex;
-  flex-direction: column;
-  align-self: normal;
+.content .cards-container {
+  margin-right: 12rem;
 }
 
 .cards-container .card-back {
@@ -71,19 +70,23 @@ import CardForm from "@/components/CardForm.vue";
 }
 .cards-container .card-front,
 .cards-container .card-back {
-  width: 100%;
-  height: 100%;
+  width: 447px;
+  height: 245px;
 }
 .cards-container .card-front {
-  background: url(./assets/images/bg-card-front.png);
+  background: url(./assets/images/bg-card-front.png) no-repeat center
+    center/cover;
   padding: 1.5rem;
   border-radius: 10px;
+  box-shadow: 0 4px 60px -2px rgba(0, 0, 0, 0.295);
 }
 
 .cards-container .card-back {
-  background: url(./assets/images/bg-card-back.png);
+  background: url(./assets/images/bg-card-back.png) no-repeat center
+    center/cover;
   padding: 1.5rem;
   border-radius: 10px;
+  box-shadow: 0 4px 50px -2px rgba(0, 0, 0, 0.295);
 }
 
 .card-front .card-info {
@@ -99,6 +102,7 @@ import CardForm from "@/components/CardForm.vue";
 }
 .card-front .card-info .card-number span {
   margin-right: 0.7rem;
+  height: 1rem;
 }
 
 .card-front .card-info .card-name-date {
