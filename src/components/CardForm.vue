@@ -14,23 +14,43 @@
         <label for="number">Card Number</label>
         <input
           type="text"
-          maxlength="16"
+          maxlength="19"
           pattern="[0-9]*"
           inputmode="numeric"
           id="number"
           placeholder="e.g. 1234 5678 9123 0000"
           v-model="cardStore.cardData.cardNumber"
+          @input="splitIntoCompinations"
         />
       </div>
       <div class="date-cvv">
         <div class="input-field">
           <label for="date">Exp. Date (MM/YY)</label>
-          <input type="text" id="month" placeholder="MM" />
-          <input type="text" id="year" placeholder="YY" />
+          <input
+            type="text"
+            id="month"
+            placeholder="MM"
+            inputmode="numeric"
+            maxlength="2"
+          />
+          <input
+            type="text"
+            id="year"
+            placeholder="YY"
+            inputmode="numeric"
+            maxlength="2"
+          />
         </div>
         <div class="input-field">
           <label for="cvc">cvc</label>
-          <input type="text" name="" id="cvc" placeholder="123" />
+          <input
+            type="text"
+            name="cvc"
+            id="cvc"
+            placeholder="123"
+            maxlength="3"
+            inputmode="numeric"
+          />
         </div>
       </div>
       <button class="btn" type="submit" @click.prevent="">Confirm</button>
@@ -39,9 +59,17 @@
 </template>
 
 <script setup>
+import { storeToRefs } from "pinia";
 import { useCardStore } from "../store/card";
-import { ref, watch } from "vue";
+import { ref, watch, computed } from "vue";
 const cardStore = useCardStore();
+
+const splitIntoCompinations = (evt) => {
+  cardStore.cardData.cardNumber = evt.target.value
+    .replace(/\s/g, "")
+    .replace(/(.{4})/g, "$1 ")
+    .trim();
+};
 </script>
 
 <style scoped>

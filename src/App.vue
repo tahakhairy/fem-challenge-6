@@ -9,12 +9,7 @@
             <span v-if="cardStore.cardData.cardNumber === ''"
               >0000 0000 0000 0000</span
             >
-            <span
-              v-else
-              v-for="compination in cardStore.cardNumberCompination"
-              :key="compination"
-              >{{ compination }}</span
-            >
+            <span>{{ cardStore.cardData.cardNumber }}</span>
           </div>
           <div class="card-name-date">
             <p>{{ holderName }}</p>

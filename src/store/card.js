@@ -14,15 +14,5 @@ export const useCardStore = defineStore("card", () => {
     return cardData.value.cardNumber.match(/.{1,4}/g);
   });
 
-  const cardNumberSplitted = computed(() => {
-    // Card number without dash (-)
-
-    // Generate dashed number
-    let dashedNumber = cardData.value.cardNumber.match(/.{1,4}/g);
-    console.log(dashedNumber);
-    // Replace the dashed number with the real one
-    return dashedNumber.join(" ");
-  });
-
-  return { cardData, cardNumberCompination, cardNumberSplitted };
+  return { cardData, cardNumberCompination };
 });
