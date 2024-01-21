@@ -9,17 +9,24 @@
             <span v-if="cardStore.cardData.cardNumber === ''"
               >0000 0000 0000 0000</span
             >
-            <span>{{ cardStore.cardData.cardNumber }}</span>
+            <span v-else v-for="comp in cardNumber">{{ comp }}</span>
           </div>
           <div class="card-name-date">
             <p>{{ holderName }}</p>
-            <p>01/25</p>
+            <p>
+              <span v-if="cardStore.cardData.expDate.month === ''"> 00 </span>
+              <span v-else>{{ expDate.month }}</span>
+              /
+              <span v-if="cardStore.cardData.expDate.year === ''">00</span>
+              <span v-else>{{ expDate.year }}</span>
+            </p>
           </div>
         </div>
       </div>
 
       <div class="card-back">
-        <span class="card-cvv">000</span>
+        <span v-if="cardStore.cardData.cvc === ''" class="card-cvv">000</span>
+        <span v-else class="card-cvv">{{ cvc }}</span>
       </div>
     </div>
     <card-form></card-form>
@@ -32,8 +39,23 @@ import CardForm from "@/components/CardForm.vue";
 
 const cardStore = useCardStore();
 
+const cardNumber = computed(() => {
+  return cardStore.cardData.cardNumber.split(" ");
+});
+
 const holderName = computed(() => {
   return cardStore.cardData.holderName;
+});
+
+const expDate = computed(() => {
+  return {
+    month: cardStore.cardData.expDate.month,
+    year: cardStore.cardData.expDate.year,
+  };
+});
+
+const cvc = computed(() => {
+  return cardStore.cardData.cvc;
 });
 </script>
 <style scoped>

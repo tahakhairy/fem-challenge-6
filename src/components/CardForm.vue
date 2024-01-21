@@ -1,71 +1,74 @@
 <template>
-  <div class="form">
-    <form action="">
+  <form action="">
+    <div class="input-field">
+      <label for="name">Cardholder Name</label>
+      <input
+        type="text"
+        id="name"
+        placeholder="e.g. Jane Appleseed"
+        v-model="cardData.holderName"
+      />
+    </div>
+    <div class="input-field">
+      <label for="number">Card Number</label>
+      <input
+        type="text"
+        maxlength="19"
+        pattern="[0-9]*"
+        inputmode="numeric"
+        id="number"
+        placeholder="e.g. 1234 5678 9123 0000"
+        v-model="cardData.cardNumber"
+        @input="splitIntoCompinations"
+      />
+    </div>
+    <div class="date-cvv">
       <div class="input-field">
-        <label for="name">Cardholder Name</label>
+        <label for="date">Exp. Date (MM/YY)</label>
         <input
           type="text"
-          id="name"
-          placeholder="e.g. Jane Appleseed"
-          v-model="cardStore.cardData.holderName"
-        />
-      </div>
-      <div class="input-field">
-        <label for="number">Card Number</label>
-        <input
-          type="text"
-          maxlength="19"
-          pattern="[0-9]*"
+          id="month"
+          placeholder="MM"
           inputmode="numeric"
-          id="number"
-          placeholder="e.g. 1234 5678 9123 0000"
-          v-model="cardStore.cardData.cardNumber"
-          @input="splitIntoCompinations"
+          maxlength="2"
+          v-model="cardData.expDate.month"
+        />
+        <input
+          type="text"
+          id="year"
+          placeholder="YY"
+          inputmode="numeric"
+          maxlength="2"
+          v-model="cardData.expDate.year"
         />
       </div>
-      <div class="date-cvv">
-        <div class="input-field">
-          <label for="date">Exp. Date (MM/YY)</label>
-          <input
-            type="text"
-            id="month"
-            placeholder="MM"
-            inputmode="numeric"
-            maxlength="2"
-          />
-          <input
-            type="text"
-            id="year"
-            placeholder="YY"
-            inputmode="numeric"
-            maxlength="2"
-          />
-        </div>
-        <div class="input-field">
-          <label for="cvc">cvc</label>
-          <input
-            type="text"
-            name="cvc"
-            id="cvc"
-            placeholder="123"
-            maxlength="3"
-            inputmode="numeric"
-          />
-        </div>
+      <div class="input-field">
+        <label for="cvc">cvc</label>
+        <input
+          type="text"
+          name="cvc"
+          id="cvc"
+          placeholder="123"
+          maxlength="3"
+          inputmode="numeric"
+          v-model="cardData.cvc"
+        />
       </div>
-      <button class="btn" type="submit" @click.prevent="">Confirm</button>
-    </form>
-  </div>
+    </div>
+    <button class="btn" type="submit" @click.prevent="">Confirm</button>
+  </form>
 </template>
 
 <script setup>
 import { storeToRefs } from "pinia";
 import { useCardStore } from "../store/card";
-import { ref, watch, computed } from "vue";
+
 const cardStore = useCardStore();
 
+const { cardData } = storeToRefs(cardStore);
+
 const splitIntoCompinations = (evt) => {
-  cardStore.cardData.cardNumber = evt.target.value
+  cardData.value.cardNumber = evt.target.value
     .replace(/\s/g, "")
     .replace(/(.{4})/g, "$1 ")
     .trim();
@@ -135,7 +138,7 @@ input:focus {
   background-clip: padding-box, border-box;
 }
 
-.form .input-field label {
+.input-field label {
   margin-bottom: 0.5rem;
   text-transform: uppercase;
   letter-spacing: 1px;

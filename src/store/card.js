@@ -6,8 +6,8 @@ export const useCardStore = defineStore("card", () => {
   const cardData = ref({
     holderName: "",
     cardNumber: "",
-    expDate: "00/00",
-    cvc: "000",
+    expDate: { month: "", year: "" },
+    cvc: "",
   });
 
   const cardNumberCompination = computed(() => {
