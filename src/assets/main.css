@@ -10,7 +10,7 @@
 }
 
 body {
-  min-width: 375px;
+  /* max-width: 1200px; */
   background-color: white;
   font-family: "Space Grotesk", sans-serif;
   font-size: 18px;

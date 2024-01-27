@@ -20,7 +20,7 @@
       <vee-field name="cardNumber" #default="{ field, errors }">
         <input
           type="text"
-          maxlength="19"
+          maxlength="16"
           pattern="[0-9]*"
           inputmode="numeric"
           id="number"
@@ -78,6 +78,7 @@
 <script setup>
 import { storeToRefs } from "pinia";
 import { useCardStore } from "../store/card";
+import { ref } from "vue";
 
 const cardStore = useCardStore();
 
@@ -98,8 +99,13 @@ const validationSchema = {
   cardCvc: "required|numeric|min:3",
 };
 
+const isSubmitted = ref(false);
+const emit = defineEmits(["update:submitted"]);
+
 const submitForm = (values) => {
   console.log(values);
+  isSubmitted.value = true;
+  emit("update:submitted", isSubmitted.value);
 };
 </script>
 
