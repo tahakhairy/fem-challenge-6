@@ -93,7 +93,7 @@ const splitIntoCompinations = (evt) => {
 
 const validationSchema = {
   cardHolder: "required|alpha_spaces|max:35|min:10",
-  cardNumber: "required",
+  cardNumber: "required|numeric|min:16",
   cardMonth: "required|numeric|min:2|between:1,12",
   cardYear: "required|numeric|min:2|between:24,50",
   cardCvc: "required|numeric|min:3",
@@ -189,5 +189,12 @@ input:focus {
 
 .card-month-err {
   grid-column: 1 / span 2;
+}
+
+@media (max-width: 500px) {
+  form {
+    width: 100%;
+    margin-top: 6rem;
+  }
 }
 </style>

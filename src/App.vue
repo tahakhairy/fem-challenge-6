@@ -40,13 +40,16 @@ const isSubmitted = ref(false);
 
 @media (max-width: 500px) {
   .app-bg {
-    height: 30%;
+    height: 26%;
     width: 100%;
   }
 
   .content {
+    margin: 0 auto;
     flex-direction: column;
+    justify-content: flex-start;
     position: relative;
+    padding: 2rem 1rem;
   }
 }
 </style>
